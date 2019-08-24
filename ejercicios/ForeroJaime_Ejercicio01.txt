@@ -1,0 +1,16 @@
+
+echo "Jaime Forero 08080808"
+
+wget https://raw.githubusercontent.com/ComputoCienciasUniandes/FISI2028-201920/master/ejercicios/01/calificaciones.dat
+
+echo "El numero de lineas del archivo es "
+wc -l < calificaciones.dat
+
+echo "El numero de personas que pasaron el curso es"
+awk '{if ($5>=3.0) print $0}' calificaciones.dat | wc -l 
+
+echo "El numero de personas que pasaron al menos un parcial es"
+awk '{if (($1>=3.0)||($2>=3.0)||($3>=3.0)) print $0}' calificaciones.dat | wc -l 
+
+echo "El número de personas que perdieron al menos un parcial y pasaron el curso es:"
+awk '{if ((($1<3.0)||($2<3.0)||($3<3.0))&&($5>=3.0)) print $0}' calificaciones.dat | wc -l 
