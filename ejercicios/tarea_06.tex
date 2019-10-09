@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+ 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen}, keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray}, stringstyle=\color{codepurple}, basicstyle=\footnotesize,
+    breakatwhitespace=false, breaklines=true, captionpos=b, keepspaces=true, numbers=left,                    
+    numbersep=5pt, showspaces=false, showstringspaces=false, showtabs=false,tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Tarea 06}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Primera parte (50 puntos)}
+
+Guarde el siguiente código en un archivo llamado \texttt{grafica\_gauss.py}.
+
+\begin{lstlisting}[language=Python, caption=grafica\_gauss.py]
+import matplotlib.pyplot as plt
+import math
+
+n_sigma = 10
+sigma = n_sigma * 0.05
+n_points = 200
+deltax = 20/n_points
+
+l = list(range(n_points))
+x = []
+for i in l:
+    x.append(-10.0 + deltax * i)
+
+y = []
+for i in x:
+    y.append( math.exp(-0.5*i**2/sigma**2))
+    
+plt.figure()
+plt.plot(x,y)    
+plt.savefig('{}.png'.format(n_sigma))
+plt.close()
+
+\end{lstlisting}
+
+Este código genera \verb"n_points" puntos entre $-10$ y $10$ para graficar una gaussiana
+centrada en $0$ y $\sigma=$\verb"n_sigma"$\times 0.05$.
+La gr\'afica se guarda como \verb"n_sigma.png".
+
+\begin{itemize}
+    \item Corra el c\'odigo una vez para comprobar su funcionamiento.
+    \item Cambie \verb"n_sigma" (entero) para comprobar su funcionamiento.
+    \item Modifique el código para que sea una funci\'on de nombre \verb"genera()"
+      que tenga como argumento  de entrada \verb"n_sigma". 
+      Con esto, al llamar la \verb"genera(n_sigma)" se genera la gráfica y la guarda.
+    \item Guarde este archivo.
+\end{itemize}
+
+Cree un Notebook llamado \verb"ejercicio06.ipynb".
+
+\begin{itemize}
+    \item Importe el módulo \verb"grafica\_gauss" que creó en el numeral anterior.
+    \item Llame la función que creó en el numeral anterior para comprobar que funciona.
+    \item Inicie un contador $n$ que cambia entre $1$ y $50$ para llamar a la funci\'on
+      \verb"genera(n)".
+\end{itemize}
+ 
+Ejecute la celda. Esto debería generar cerca de $49$ archivos de imágen. 
+
+
+Ahora vamos a hacer una \verb"pelicula.gif" con las imágenes que se
+crearon en el numeral anterior. 
+
+\begin{itemize}
+\item En una celda del notebook cree una lista con los nombres de las
+  imágenes como strings. 
+Llámela  \verb"filenames".
+\item Use una estructura de código similar a la siguiente para que el
+  módulo \verb"imageio" genere un nuevo archivo apilando las imágenes.
+\end{itemize}
+
+
+
+\begin{lstlisting}[language=Python, caption=gif animado]
+import imageio
+
+filenames = []  ## Lista con los nombres de los archivos
+
+with imageio.get_writer("pelicula.gif", mode="I") as writer:
+    for filename in filenames:
+        image = imageio.imread(filename)
+        writer.append_data(image)
+\end{lstlisting}
+
+
+\textbf{Segunda parte (50 puntos)}
+
+En un archivo llamado \verb"grafica_arquimedes.py" escriba el c\'odigo 
+necesario para tener una funci\'on \verb"espiral(n)" que grafica espiral de Ar\'quimedes como la mostrada 
+en Wikipedia \url{https://en.wikipedia.org/wiki/Archimedean_spiral} donde el par\'ametro
+$b=n/100.0$ y $a=0$.
+Las funciones seno y coseno dentro de python las puede utilizar como \verb"math.sin()" y \verb"math.cos()"
+luego de importar \verb"math".
+La gr\'afica debe quedar guardada en un archivo \verb"png".
+
+Dentro del notebook \verb"ejercicio06.ipynb".
+
+\begin{itemize}
+    \item Importe el módulo \verb"grafica\_arquimedes" que creó en el numeral anterior.
+    \item Llame la función que creó en el numeral anterior para comprobar que funciona.
+    \item Inicie un contador $n$ que cambia entre $1$ y $100$ para llamar a la funci\'on
+      \verb"espiral(n)".
+\end{itemize}
+ 
+Ejecute la celda. Esto debería generar cerca de $100$ archivos de imágen. 
+Con estos archivos haga un gif animado \verb"espiral.gif".
+
+
+\end{document}
