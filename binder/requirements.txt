@@ -2,6 +2,7 @@ traitlets>=4.3.1
 ipython
 pandas
 vdom
-matplotlib
+matplotlip
+scipy
 imageio
 jupyterlab_launcher>=0.5.0
