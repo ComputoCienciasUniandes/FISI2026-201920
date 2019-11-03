@@ -1,0 +1,132 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+ 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen}, keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray}, stringstyle=\color{codepurple}, basicstyle=\footnotesize,
+    breakatwhitespace=false, breaklines=true, captionpos=b, keepspaces=true, numbers=left,                    
+    numbersep=5pt, showspaces=false, showstringspaces=false, showtabs=false,tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Tarea 9}
+
+\begin{document}
+
+\maketitle
+
+\section{Ejercicio 1 - Ceros de las funciones de Bessel}
+
+Las funciones de Bessel aparecen como soluci\'on a ecuaciones diferenciales 
+en ciencias naturales 
+\footnote{\url{https://en.wikipedia.org/wiki/Bessel_function}}
+Pueden describir la forma de una membrana de un tambor cuando suena o
+el potencial eléctrico dentro de cavidades cilíndricas por mencionar
+algunos problemas físicos. 
+En este ejercicio utilizaremos una librería que calcula las funciones de Bessel.
+
+\subsection{Importando la librería SciPy}
+Esta biblioteca contiene m\'etodos que nos permite calcular 
+la funci\'on de Bessel $J_\nu(x)$. 
+
+En la primera celda escriba
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.special as sp
+%matplotlib inline
+\end{lstlisting}
+
+Cree un array tipo linspace $x$ entre 0 y 20 y 100 puntos.
+Genere un segundo array $y=J_\nu(x)$, con $\nu = 1$.
+\begin{lstlisting}[language=Python]
+x = np.linspace(0,20, 100)
+y = sp.jv(1,x)
+\end{lstlisting}
+
+Grafique $x$ vs $y$.
+\begin{lstlisting}[language=Python]
+plt.title("Funcion de Bessel de primer orden")
+plt.plot(x,y)
+plt.grid(True)
+plt.axhline(y=0, color="black")
+plt.axvline(x=0, color="black")
+\end{lstlisting}
+
+\subsection{(30 puntos) Buscando ceros por barrido}
+
+Implemente un algoritmo para buscar ceros a través de cambio de signo
+en la función mientras se hace barrido en $x$ desde cero hasta veinte.
+Omita $x=0$.
+
+\begin{itemize}
+\item El algoritmo debe barrer el dominio de $x$ en pequeños pasos pequeños.
+\item El algoritmo debe decir si encuentra ceros a partir del cambio de
+  signo de la función
+\item El algoritmo debe encontrar los ceros con un error no mayor a 0.2
+\end{itemize}
+
+El c\'odigo no puede ser una copia del código en el vídeo. 
+Entienda el método y escriba su propia versión.
+
+\subsection{(30 puntos) Buscando ceros por bisección}
+Omita $x=0$.
+
+\begin{itemize}
+\item El algoritmo buscará en todos los ceros que encontró en el punto anterior.
+\item Si se tiene un cero en $x_0$, el algoritmo  puede empezar a buscar
+  dentro de un rango $(x_0 - 0.5 , x_0 + 0.5)$
+  alrededor de cada cero que había encontrado.  
+\item El algoritmo debe dividir el rango entre dos partes, e identificar
+  en qué momento cambia la función de signo para aceptar el rango
+  donde se hace el cambio de signo y rechazar el dominio donde no
+  cambió la función de signo. Esta parte debe ser repetirse hasta
+  encontrar el cero dentro del error propuesto (0.0001)
+  $|f(x)| < 0.0001$
+\item El algoritmo debe encontrar los ceros que encontró en el punto
+  anterior.
+\item El algoritmo debe reportar cuántas iteraciones requiere para
+  encontrar cada uno de los ceros en el dominio.
+\end{itemize}
+
+El c\'odigo no puede ser una copia del código en el vídeo. 
+Entienda el método y escriba su propia versión.
+
+
+\subsection{(40 puntos) Método de Newton-Raphson}
+
+Escribir un algoritmo que busque los ceros de la función de Bessel
+$J_1(x)$ entre 0 y 20. Omitir $x=0$.
+
+\begin{itemize}
+\item El algoritmo debe utilizar los mismos puntos de partida que en el
+  punto anterior, cercanos a los ceros.
+\item El algoritmo debe calcular la derivada de la funci\'on.
+\item A partir de la derivada, debe buscar el intersecto de la recta tangente
+  al punto donde se calculó la derivada.
+\item Una vez se tiene el intersecto, se evalúa la función, se repite el
+  procedimiento hasta que el error sea inferior a 0.0001.
+  $|f(x)| < 0.0001$
+\item Indicar cuántas iteraciones se requieren para que este método
+  encuentre cada uno de los ceros.
+\end{itemize}
+
+\end{document}
+
+\end{document}
